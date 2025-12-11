@@ -1,0 +1,15 @@
+Dockerfile
+.dockerignore
+node_modules
+npm-debug.log
+README.md
+.next
+.git
+.gitignore
+/data/
+sqlite.db
+.env
+.env*.local
+build
+dist
+coverage
