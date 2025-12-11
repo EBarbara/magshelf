@@ -1,66 +1,92 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+'use client';
 
-export default function Home() {
+import { useEffect, useState } from 'react';
+import IssueCard from '@/components/IssueCard';
+import MagazineCard from '@/components/MagazineCard';
+import styles from './page.module.css';
+import { ChevronRight, ChevronLeft } from 'lucide-react';
+
+interface Article {
+  // Placeholder
+}
+
+interface Issue {
+  id: number;
+  title: string;
+  volume?: number;
+  issueNumber?: string;
+  fileName: string;
+  pageCount: number;
+  magazineTitle: string;
+}
+
+interface Magazine {
+  id: number;
+  title: string;
+  issueCount: number;
+}
+
+export default function Dashboard() {
+  const [recentIssues, setRecentIssues] = useState<Issue[]>([]);
+  const [magazines, setMagazines] = useState<Magazine[]>([]);
+
+  useEffect(() => {
+    fetch('/api/issues?limit=6')
+      .then(res => res.json())
+      .then(data => setRecentIssues(data));
+
+    fetch('/api/magazines')
+      .then(res => res.json())
+      .then(data => setMagazines(data));
+  }, []);
+
   return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className={styles.intro}>
-          <h1>To get started, edit the page.tsx file.</h1>
-          <p>
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+    <div className={styles.container}>
+      <section className={styles.section}>
+        <div className={styles.sectionHeader}>
+          <h2 className={styles.sectionTitle}>Recently Added Issues</h2>
+          <div className={styles.navIcons}>
+            <button className={styles.iconBtn}><ChevronLeft size={16} /></button>
+            <button className={styles.iconBtn}><ChevronRight size={16} /></button>
+          </div>
         </div>
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className={styles.logo}
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
+
+        <div className={styles.carousel}>
+          {recentIssues.map(issue => (
+            <div key={issue.id} className={styles.carouselItem}>
+              <IssueCard
+                id={issue.id}
+                fileName={issue.fileName}
+                issueNumber={issue.issueNumber}
+                pageCount={issue.pageCount}
+                magazineTitle={issue.magazineTitle}
+              />
+            </div>
+          ))}
+          {recentIssues.length === 0 && <p className={styles.empty}>No issues found. <span onClick={() => fetch('/api/scan')}>Scan Library</span></p>}
+        </div>
+      </section>
+
+      <section className={styles.section}>
+        <div className={styles.sectionHeader}>
+          <h2 className={styles.sectionTitle}>Recently Updated Magazines</h2>
+          <div className={styles.navIcons}>
+            <button className={styles.iconBtn}><ChevronLeft size={16} /></button>
+            <button className={styles.iconBtn}><ChevronRight size={16} /></button>
+          </div>
+        </div>
+
+        <div className={styles.grid}>
+          {magazines.map(mag => (
+            <MagazineCard
+              key={mag.id}
+              id={mag.id}
+              title={mag.title}
+              issueCount={mag.issueCount}
             />
-            Deploy Now
-          </a>
-          <a
-            className={styles.secondary}
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+          ))}
         </div>
-      </main>
+      </section>
     </div>
   );
 }

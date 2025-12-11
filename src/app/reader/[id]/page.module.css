@@ -1,0 +1,87 @@
+.reader {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    background-color: #000;
+    color: #fff;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    z-index: 100;
+}
+
+.toolbar {
+    height: 50px;
+    display: flex;
+    align-items: center;
+    padding: 0 1rem;
+    background-color: rgba(0, 0, 0, 0.8);
+    justify-content: space-between;
+}
+
+.backBtn {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #fff;
+    font-size: 0.9rem;
+}
+
+.title {
+    font-size: 0.9rem;
+    color: #ccc;
+}
+
+.pageInfo {
+    font-size: 0.9rem;
+    font-weight: bold;
+}
+
+.viewer {
+    flex: 1;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.imageContainer {
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+.pageImage {
+    object-fit: contain;
+}
+
+.navBtn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: transparent;
+    border: none;
+    color: rgba(255, 255, 255, 0.2);
+    cursor: pointer;
+    padding: 2rem;
+    transition: color 0.2s;
+}
+
+.navBtn:hover {
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.navBtn:disabled {
+    color: rgba(255, 255, 255, 0.05);
+    cursor: not-allowed;
+}
+
+.prev {
+    left: 0;
+}
+
+.next {
+    right: 0;
+}

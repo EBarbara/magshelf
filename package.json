@@ -9,16 +9,27 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "adm-zip": "^0.5.16",
+    "better-sqlite3": "^12.5.0",
+    "clsx": "^2.1.1",
+    "drizzle-orm": "^0.45.1",
+    "lucide-react": "^0.559.0",
+    "mime-types": "^3.0.2",
     "next": "16.0.8",
     "react": "19.2.1",
     "react-dom": "19.2.1"
   },
   "devDependencies": {
+    "@types/adm-zip": "^0.5.7",
+    "@types/better-sqlite3": "^7.6.13",
+    "@types/mime-types": "^3.0.1",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "drizzle-kit": "^0.31.8",
     "eslint": "^9",
     "eslint-config-next": "16.0.8",
+    "tsx": "^4.21.0",
     "typescript": "^5"
   }
 }

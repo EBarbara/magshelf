@@ -1,0 +1,148 @@
+.sidebar {
+    width: 250px;
+    height: 100vh;
+    background-color: var(--card);
+    border-right: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    padding: 1.5rem;
+    position: fixed;
+    left: 0;
+    top: 0;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 2rem;
+    color: var(--primary);
+}
+
+.logoIcon {
+    background: #fdf6e3;
+    /* beige-ish */
+    padding: 0.5rem;
+    border-radius: 4px;
+    color: #5d4037;
+}
+
+.logoText {
+    font-weight: 700;
+    font-size: 1.25rem;
+    color: #1a1a1a;
+}
+
+.nav {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    flex: 1;
+}
+
+.navItem {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem;
+    border-radius: var(--radius);
+    color: var(--muted-foreground);
+    transition: all 0.2s;
+    cursor: pointer;
+}
+
+.navItem:hover {
+    background-color: var(--secondary);
+    color: var(--primary);
+}
+
+.navItem.active {
+    background-color: #1a2332;
+    /* Dark blue from screenshot */
+    color: #ffffff;
+}
+
+.group {
+    display: flex;
+    flex-direction: column;
+}
+
+.groupHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.75rem;
+    color: var(--muted-foreground);
+    cursor: pointer;
+    border-radius: var(--radius);
+}
+
+.groupHeader:hover {
+    background-color: var(--secondary);
+    color: var(--primary);
+}
+
+.groupTitle {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.groupContent {
+    padding-left: 2.75rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-top: 0.25rem;
+}
+
+.subItem {
+    font-size: 0.9rem;
+    color: var(--muted-foreground);
+    padding: 0.25rem 0;
+    cursor: pointer;
+}
+
+.subItem:hover {
+    color: var(--primary);
+}
+
+.chevron {
+    transition: transform 0.2s;
+}
+
+.chevron.open {
+    transform: rotate(180deg);
+}
+
+.divider {
+    height: 1px;
+    background-color: var(--border);
+    margin: 1rem 0;
+}
+
+.footer {
+    border-top: 1px solid var(--border);
+    padding-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.footerItem label {
+    display: block;
+    font-size: 0.75rem;
+    color: var(--muted-foreground);
+    margin-bottom: 0.25rem;
+}
+
+.select {
+    border: 1px solid var(--border);
+    padding: 0.5rem;
+    border-radius: var(--radius);
+    font-size: 0.9rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+}

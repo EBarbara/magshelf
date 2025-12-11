@@ -1,0 +1,93 @@
+'use client';
+
+import { useState, useEffect } from 'react';
+import Image from 'next/image';
+import { ChevronLeft, ChevronRight, ArrowLeft } from 'lucide-react';
+import Link from 'next/link';
+import { useParams } from 'next/navigation';
+import styles from './page.module.css';
+
+export default function ReaderPage() {
+    const params = useParams();
+    // In Next 15 params is async in server components but hook unwrap it in Client Components in future maybe? 
+    // Usually useParams() returns the params object directly in Client Components.
+
+    const id = params?.id as string;
+
+    // We need page count. For now, fetch issue info or just infinite scroll until 404?
+    // Better fetch issue info. We'll add an endpoint for it.
+    // Or just pass it via query params? No, cleaner to fetch.
+    const [pageCount, setPageCount] = useState(0);
+    const [currentPage, setCurrentPage] = useState(0);
+    const [title, setTitle] = useState('');
+
+    useEffect(() => {
+        if (!id) return;
+        // Quick hack: Search in recent issues API to find this issue details
+        // A proper app would have /api/issues/:id
+        fetch(`/api/issues?limit=100`)
+            .then(res => res.json())
+            .then((data: any[]) => {
+                const issue = data.find(i => i.id === parseInt(id));
+                if (issue) {
+                    setPageCount(issue.pageCount);
+                    setTitle(issue.magazineTitle + ' - ' + issue.fileName);
+                }
+            });
+    }, [id]);
+
+    const handlePrev = () => {
+        setCurrentPage(p => Math.max(0, p - 1));
+    };
+
+    const handleNext = () => {
+        // If we know pageCount, stop there.
+        if (pageCount > 0 && currentPage >= pageCount - 1) return;
+        setCurrentPage(p => p + 1);
+    };
+
+    // Keyboard navigation
+    useEffect(() => {
+        const handleKeyDown = (e: KeyboardEvent) => {
+            if (e.key === 'ArrowLeft') handlePrev();
+            if (e.key === 'ArrowRight') handleNext();
+        };
+        window.addEventListener('keydown', handleKeyDown);
+        return () => window.removeEventListener('keydown', handleKeyDown);
+    }, [pageCount, currentPage]);
+
+    return (
+        <div className={styles.reader}>
+            <div className={styles.toolbar}>
+                <Link href="/" className={styles.backBtn}><ArrowLeft size={20} /> Back</Link>
+                <span className={styles.title}>{title}</span>
+                <span className={styles.pageInfo}>Page {currentPage + 1} {pageCount > 0 ? `/ ${pageCount}` : ''}</span>
+            </div>
+
+            <div className={styles.viewer}>
+                <div className={styles.imageContainer}>
+                    {/* We use standard img for Reader to avoid complexity with Next Image optimization on dynamic huge blobs sometimes, but Next Image is fine too */}
+                    {/* Using unoptimized to ensure original quality roughly or handling large buffers */}
+                    <Image
+                        src={`/api/image/${id}/${currentPage}`}
+                        alt={`Page ${currentPage + 1}`}
+                        fill
+                        layout='fill'
+                        objectFit='contain'
+                        priority
+                        className={styles.pageImage}
+                        key={currentPage} // Force re-render on page change
+                    />
+                </div>
+
+                <button className={`${styles.navBtn} ${styles.prev}`} onClick={handlePrev} disabled={currentPage === 0}>
+                    <ChevronLeft size={48} />
+                </button>
+
+                <button className={`${styles.navBtn} ${styles.next}`} onClick={handleNext} disabled={pageCount > 0 && currentPage >= pageCount - 1}>
+                    <ChevronRight size={48} />
+                </button>
+            </div>
+        </div>
+    );
+}
