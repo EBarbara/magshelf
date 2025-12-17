@@ -29,7 +29,9 @@ export async function GET(
         issueNumber: issues.issueNumber,
         fileName: issues.fileName,
         pageCount: issues.pageCount,
+        cover: issues.cover,
         addedAt: issues.addedAt,
+        updatedAt: issues.updatedAt,
         readingProgress: {
             currentPage: readingProgress.currentPage,
             isFinished: readingProgress.isFinished,

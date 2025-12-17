@@ -13,6 +13,18 @@ export async function getImageData(issueId: number, pageIndex: number) {
     const issue = await db.select().from(issues).where(eq(issues.id, issueId)).get();
     if (!issue) return null;
 
+    // Custom cover handling for page 0
+    if (pageIndex === 0 && issue.cover) {
+        try {
+            const buffer = fs.readFileSync(issue.cover);
+            const contentType = mime.lookup(issue.cover) || 'application/octet-stream';
+            return { buffer, contentType };
+        } catch (e) {
+            console.error('Failed to read custom cover', e);
+            // Fallback to default
+        }
+    }
+
     // Determine if archive or folder
     const isArchive = fs.statSync(issue.filePath).isFile();
 

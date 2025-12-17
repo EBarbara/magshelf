@@ -11,6 +11,9 @@ interface HelperIssue {
     volume: number | null;
     issueNumber: string | null;
     fileName: string;
+    cover: string | null;
+    addedAt: string;
+    updatedAt: string | null;
     readingProgress: {
         isFinished: boolean;
         currentPage: number;
@@ -108,7 +111,7 @@ export default function MagazinePage({ params }: { params: Promise<{ id: string 
                     {coverIssue ? (
                         <div className={styles.issueCover}>
                             <img
-                                src={`/api/image/${coverIssue.id}/0`}
+                                src={`/api/image/${coverIssue.id}/0?ts=${new Date(coverIssue.updatedAt || coverIssue.addedAt).getTime()}`}
                                 alt={`Cover of ${coverIssue.title || 'issue'}`}
                                 className={styles.coverImage}
                                 onError={(e) => {
@@ -172,7 +175,7 @@ export default function MagazinePage({ params }: { params: Promise<{ id: string 
                     <div key={issue.id} className={styles.issueCard}>
                         <div className={styles.issueCover}>
                             <img
-                                src={`/api/image/${issue.id}/0`}
+                                src={`/api/image/${issue.id}/0?ts=${new Date(issue.updatedAt || issue.addedAt).getTime()}`}
                                 alt={`Cover of ${issue.title || 'issue'}`}
                                 className={styles.coverImage}
                                 style={{ width: '100%', height: '100%', objectFit: 'cover' }}

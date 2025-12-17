@@ -16,7 +16,9 @@ export const issues = sqliteTable('issues', {
     fileName: text('file_name').notNull(),
     filePath: text('file_path').notNull().unique(),
     pageCount: integer('page_count').notNull().default(0),
+    cover: text('cover'), // Custom cover image path
     addedAt: integer('added_at', { mode: 'timestamp' }).notNull().defaultNow(),
+    updatedAt: integer('updated_at', { mode: 'timestamp' }),
 });
 
 export const articles = sqliteTable('articles', {
