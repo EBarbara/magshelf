@@ -8,7 +8,7 @@ import { useState, useEffect } from 'react';
 
 interface Magazine {
     id: number;
-    title: string;
+    series: string;
 }
 
 
@@ -60,7 +60,7 @@ export default function Sidebar() {
                                     href={`/magazines/${mag.id}`}
                                     className={`${styles.subItem} ${pathname === `/magazines/${mag.id}` ? styles.activeSubItem : ''}`}
                                 >
-                                    {mag.title}
+                                    {mag.series}
                                 </Link>
                             ))}
                             {magazines.length === 0 && (

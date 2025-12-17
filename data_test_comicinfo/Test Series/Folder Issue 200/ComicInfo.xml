@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<ComicInfo xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Title>Folder XML Title</Title>
+  <Series>Test Series</Series>
+  <Number>200</Number>
+  <Volume>5</Volume>
+</ComicInfo>

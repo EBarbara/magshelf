@@ -2,7 +2,7 @@ import { sqliteTable, text, integer } from 'drizzle-orm/sqlite-core';
 
 export const magazines = sqliteTable('magazines', {
     id: integer('id').primaryKey({ autoIncrement: true }),
-    title: text('title').notNull(),
+    series: text('series').notNull(),
     path: text('path').notNull().unique(), // Folder path for the magazine series
     lastUpdated: integer('last_updated', { mode: 'timestamp' }).notNull().defaultNow(),
 });

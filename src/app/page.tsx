@@ -22,7 +22,7 @@ interface Issue {
 
 interface Magazine {
   id: number;
-  title: string;
+  series: string;
   issueCount: number;
 }
 
@@ -81,7 +81,7 @@ export default function Dashboard() {
             <MagazineCard
               key={mag.id}
               id={mag.id}
-              title={mag.title}
+              series={mag.series}
               issueCount={mag.issueCount}
             />
           ))}

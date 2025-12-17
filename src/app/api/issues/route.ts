@@ -14,7 +14,7 @@ export async function GET(request: Request) {
         fileName: issues.fileName,
         pageCount: issues.pageCount,
         addedAt: issues.addedAt,
-        magazineTitle: magazines.title
+        magazineTitle: magazines.series
     })
         .from(issues)
         .innerJoin(magazines, eq(issues.magazineId, magazines.id))

@@ -19,7 +19,7 @@ interface HelperIssue {
 
 interface Magazine {
     id: number;
-    title: string;
+    series: string;
     lastUpdated: string;
     issues: HelperIssue[];
 }
@@ -29,7 +29,7 @@ export default function MagazinePage({ params }: { params: Promise<{ id: string 
     const router = useRouter();
     const [magazine, setMagazine] = useState<Magazine | null>(null);
     const [isEditing, setIsEditing] = useState(false);
-    const [editTitle, setEditTitle] = useState('');
+    const [editSeries, setEditSeries] = useState('');
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
@@ -42,7 +42,7 @@ export default function MagazinePage({ params }: { params: Promise<{ id: string 
             if (!res.ok) throw new Error('Failed to fetch');
             const data = await res.json();
             setMagazine(data);
-            setEditTitle(data.title);
+            setEditSeries(data.series);
         } catch (error) {
             console.error(error);
         } finally {
@@ -55,11 +55,11 @@ export default function MagazinePage({ params }: { params: Promise<{ id: string 
             const res = await fetch(`/api/magazines/${id}`, {
                 method: 'PUT',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ title: editTitle }),
+                body: JSON.stringify({ series: editSeries }),
             });
             if (res.ok) {
                 const updated = await res.json();
-                setMagazine(prev => prev ? { ...prev, title: updated.title } : null);
+                setMagazine(prev => prev ? { ...prev, series: updated.series } : null);
                 setIsEditing(false);
                 router.refresh();
             }
@@ -129,13 +129,13 @@ export default function MagazinePage({ params }: { params: Promise<{ id: string 
                 <div className={styles.info}>
                     {isEditing ? (
                         <input
-                            value={editTitle}
-                            onChange={(e) => setEditTitle(e.target.value)}
+                            value={editSeries}
+                            onChange={(e) => setEditSeries(e.target.value)}
                             className={styles.input}
                             autoFocus
                         />
                     ) : (
-                        <h1 className={styles.title}>{magazine.title}</h1>
+                        <h1 className={styles.title}>{magazine.series}</h1>
                     )}
 
                     <div className={styles.metadata}>

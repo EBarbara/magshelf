@@ -6,7 +6,7 @@ export async function GET() {
     // Get magazines with issue count
     const allMagazines = await db.select({
         id: magazines.id,
-        title: magazines.title,
+        series: magazines.series,
         lastUpdated: magazines.lastUpdated,
         issueCount: sql<number>`count(${issues.id})`
     })

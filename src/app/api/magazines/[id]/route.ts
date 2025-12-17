@@ -61,7 +61,7 @@ export async function PUT(
 
     const updated = await db.update(magazines)
         .set({
-            title: body.title,
+            series: body.series,
             lastUpdated: new Date(),
         })
         .where(eq(magazines.id, magazineId))
