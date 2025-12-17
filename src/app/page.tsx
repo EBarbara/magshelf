@@ -24,6 +24,7 @@ interface Magazine {
   id: number;
   series: string;
   issueCount: number;
+  coverIssueId?: number;
 }
 
 export default function Dashboard() {
@@ -83,6 +84,7 @@ export default function Dashboard() {
               id={mag.id}
               series={mag.series}
               issueCount={mag.issueCount}
+              coverIssueId={mag.coverIssueId}
             />
           ))}
         </div>

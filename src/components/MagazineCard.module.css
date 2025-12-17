@@ -20,6 +20,14 @@
     margin-bottom: 0.5rem;
 }
 
+.image {
+    transition: transform 0.2s;
+}
+
+.card:hover .image {
+    transform: scale(1.05);
+}
+
 .placeholder {
     font-size: 3rem;
     font-weight: bold;

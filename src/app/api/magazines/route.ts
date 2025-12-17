@@ -8,7 +8,8 @@ export async function GET() {
         id: magazines.id,
         series: magazines.series,
         lastUpdated: magazines.lastUpdated,
-        issueCount: sql<number>`count(${issues.id})`
+        issueCount: sql<number>`count(${issues.id})`,
+        coverIssueId: sql<number>`min(${issues.id})`
     })
         .from(magazines)
         .leftJoin(issues, eq(magazines.id, issues.magazineId))

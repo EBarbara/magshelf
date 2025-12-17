@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect, use } from 'react';
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { Pencil, Trash2, Save, X } from 'lucide-react';
 import styles from './page.module.css';
@@ -172,7 +173,7 @@ export default function MagazinePage({ params }: { params: Promise<{ id: string 
 
             <div className={styles.issueList}>
                 {magazine.issues.map(issue => (
-                    <div key={issue.id} className={styles.issueCard}>
+                    <Link href={`/reader/${issue.id}`} key={issue.id} className={styles.issueCard}>
                         <div className={styles.issueCover}>
                             <img
                                 src={`/api/image/${issue.id}/0?ts=${new Date(issue.updatedAt || issue.addedAt).getTime()}`}
@@ -193,7 +194,7 @@ export default function MagazinePage({ params }: { params: Promise<{ id: string 
                         <div style={{ fontSize: '0.8rem', color: '#888' }}>
                             {issue.volume ? `Vol. ${issue.volume}` : ''} {issue.issueNumber ? `No. ${issue.issueNumber}` : ''}
                         </div>
-                    </div>
+                    </Link>
                 ))}
             </div>
         </div>

@@ -88,6 +88,9 @@
     text-align: center;
     transition: transform 0.2s;
     cursor: pointer;
+    display: block;
+    text-decoration: none;
+    color: inherit;
 }
 
 .issueCard:hover {
