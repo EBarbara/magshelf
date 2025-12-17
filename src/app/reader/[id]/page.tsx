@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { ChevronLeft, ChevronRight, ArrowLeft } from 'lucide-react';
 import Link from 'next/link';
-import { useParams } from 'next/navigation';
+import { useParams, useSearchParams } from 'next/navigation';
 import styles from './page.module.css';
 
 export default function ReaderPage() {
@@ -14,35 +14,39 @@ export default function ReaderPage() {
 
     const id = params?.id as string;
 
-    // We need page count. For now, fetch issue info or just infinite scroll until 404?
-    // Better fetch issue info. We'll add an endpoint for it.
-    // Or just pass it via query params? No, cleaner to fetch.
+    const searchParams = useSearchParams();
+    const startParam = searchParams.get('start');
+    const endParam = searchParams.get('end');
+
     const [pageCount, setPageCount] = useState(0);
-    const [currentPage, setCurrentPage] = useState(0);
+    const [currentPage, setCurrentPage] = useState(startParam ? parseInt(startParam) : 0);
     const [title, setTitle] = useState('');
+
+    // Limits
+    const minPage = startParam ? parseInt(startParam) : 0;
+    const maxPage = endParam ? parseInt(endParam) : null;
 
     useEffect(() => {
         if (!id) return;
-        // Quick hack: Search in recent issues API to find this issue details
-        // A proper app would have /api/issues/:id
-        fetch(`/api/issues?limit=100`)
+        // Fetch issue details directly
+        fetch(`/api/issues/${id}`)
             .then(res => res.json())
-            .then((data: any[]) => {
-                const issue = data.find(i => i.id === parseInt(id));
-                if (issue) {
-                    setPageCount(issue.pageCount);
-                    setTitle(issue.magazineTitle + ' - ' + issue.fileName);
+            .then((data) => {
+                if (data && data.issue) {
+                    setPageCount(data.issue.pageCount);
+                    setTitle(data.magazine.series + ' - ' + (data.issue.title || data.issue.fileName));
                 }
             });
     }, [id]);
 
     const handlePrev = () => {
-        setCurrentPage(p => Math.max(0, p - 1));
+        setCurrentPage(p => Math.max(minPage, p - 1));
     };
 
     const handleNext = () => {
-        // If we know pageCount, stop there.
-        if (pageCount > 0 && currentPage >= pageCount - 1) return;
+        // If maxPage is set, use it. Otherwise use pageCount.
+        const limit = maxPage !== null ? maxPage : (pageCount > 0 ? pageCount - 1 : 9999);
+        if (currentPage >= limit) return;
         setCurrentPage(p => p + 1);
     };
 
@@ -80,11 +84,11 @@ export default function ReaderPage() {
                     />
                 </div>
 
-                <button className={`${styles.navBtn} ${styles.prev}`} onClick={handlePrev} disabled={currentPage === 0}>
+                <button className={`${styles.navBtn} ${styles.prev}`} onClick={handlePrev} disabled={currentPage <= minPage}>
                     <ChevronLeft size={48} />
                 </button>
 
-                <button className={`${styles.navBtn} ${styles.next}`} onClick={handleNext} disabled={pageCount > 0 && currentPage >= pageCount - 1}>
+                <button className={`${styles.navBtn} ${styles.next}`} onClick={handleNext} disabled={(maxPage !== null && currentPage >= maxPage) || (pageCount > 0 && currentPage >= pageCount - 1)}>
                     <ChevronRight size={48} />
                 </button>
             </div>

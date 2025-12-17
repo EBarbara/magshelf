@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { db } from '@/db';
-import { issues, magazines } from '@/db/schema';
+import { issues, magazines, articles } from '@/db/schema';
 import { eq } from 'drizzle-orm';
 
 // GET: Fetch issue details
@@ -25,11 +25,17 @@ export async function GET(
             .where(eq(issues.id, issueId))
             .get();
 
+        const issueArticles = await db
+            .select()
+            .from(articles)
+            .where(eq(articles.issueId, issueId))
+            .orderBy(articles.startPage);
+
         if (!result) {
             return NextResponse.json({ error: 'Issue not found' }, { status: 404 });
         }
 
-        return NextResponse.json(result);
+        return NextResponse.json({ ...result, articles: issueArticles });
     } catch (error) {
         console.error('Error fetching issue:', error);
         return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
