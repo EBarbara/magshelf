@@ -45,8 +45,8 @@
 }
 
 .button {
-    background: var(--primary);
-    color: var(--primary-foreground);
+    background: var(--foreground);
+    color: var(--background);
     border: none;
     padding: 0.5rem 1rem;
     border-radius: var(--radius);

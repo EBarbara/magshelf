@@ -5,6 +5,7 @@ import { usePathname } from 'next/navigation';
 import { Home, Library, User, LogOut, ChevronDown, BookOpen, Settings as SettingsIcon } from 'lucide-react';
 import styles from './Sidebar.module.css';
 import { useState, useEffect } from 'react';
+import { ThemeSelector } from './ThemeSelector';
 
 interface Magazine {
     id: number;
@@ -97,7 +98,7 @@ export default function Sidebar() {
             <div className={styles.footer}>
                 <div className={styles.footerItem}>
                     <label>Theme</label>
-                    <div className={styles.select}>System</div>
+                    <ThemeSelector />
                 </div>
                 <div className={styles.footerItem}>
                     <label>Translation</label>

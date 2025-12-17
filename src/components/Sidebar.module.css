@@ -20,17 +20,17 @@
 }
 
 .logoIcon {
-    background: #fdf6e3;
-    /* beige-ish */
+    background: transparent;
     padding: 0.5rem;
     border-radius: 4px;
-    color: #5d4037;
+    color: var(--foreground);
+    border: 1px solid var(--border);
 }
 
 .logoText {
     font-weight: 700;
     font-size: 1.25rem;
-    color: #1a1a1a;
+    color: var(--foreground);
 }
 
 .nav {
@@ -145,4 +145,5 @@
     justify-content: space-between;
     align-items: center;
     cursor: pointer;
+    width: 100%;
 }

@@ -4,6 +4,7 @@ import './globals.css';
 import Sidebar from '@/components/Sidebar';
 import Topbar from '@/components/Topbar';
 import styles from './layout.module.css';
+import { ThemeProvider } from '@/components/ThemeProvider';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -18,17 +19,19 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body className={inter.className}>
-        <div className={styles.layout}>
-          <Sidebar />
-          <div className={styles.main}>
-            <Topbar />
-            <div className={styles.content}>
-              {children}
+        <ThemeProvider attribute="data-theme" defaultTheme="system" enableSystem>
+          <div className={styles.layout}>
+            <Sidebar />
+            <div className={styles.main}>
+              <Topbar />
+              <div className={styles.content}>
+                {children}
+              </div>
             </div>
           </div>
-        </div>
+        </ThemeProvider>
       </body>
     </html>
   );

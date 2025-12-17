@@ -19,6 +19,26 @@
   --radius: 0.5rem;
 }
 
+[data-theme='dark'] {
+  --background: #202124;
+  --foreground: #e8eaed;
+  --card: #303134;
+  --card-foreground: #e8eaed;
+  --primary: #e8eaed;
+  --primary-foreground: #202124;
+  --secondary: #303134;
+  --secondary-foreground: #e8eaed;
+  --muted: #3c4043;
+  --muted-foreground: #9aa0a6;
+  --accent: #303134;
+  --accent-foreground: #e8eaed;
+  --destructive: #f28b82;
+  --destructive-foreground: #202124;
+  --border: #5f6368;
+  --input: #5f6368;
+  --ring: #e8eaed;
+}
+
 * {
   box-sizing: border-box;
 }
