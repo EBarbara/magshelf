@@ -8,18 +8,19 @@ interface IssueCardProps {
     issueNumber?: string;
     pageCount: number;
     magazineTitle: string;
+    cover?: string | null;
 }
 
-export default function IssueCard({ id, fileName, issueNumber, pageCount, magazineTitle }: IssueCardProps) {
+export default function IssueCard({ id, fileName, issueNumber, pageCount, magazineTitle, cover }: IssueCardProps) {
     // Generate cover image URL
     // We assume page 0 is cover
-    const coverUrl = `/api/image/${id}/0`;
+    const coverUrl = cover || `/api/image/${id}/0`;
 
     // Display Logic: Try to parse title better if needed, or just use what we have
     const displayText = issueNumber ? `Issue ${issueNumber}` : fileName;
 
     return (
-        <Link href={`/reader/${id}`} className={styles.card}>
+        <Link href={`/issues/${id}`} className={styles.card}>
             <div className={styles.imageWrapper}>
                 <Image
                     src={coverUrl}

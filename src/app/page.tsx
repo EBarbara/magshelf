@@ -18,6 +18,7 @@ interface Issue {
   fileName: string;
   pageCount: number;
   magazineTitle: string;
+  cover?: string | null;
 }
 
 interface Magazine {
@@ -61,6 +62,7 @@ export default function Dashboard() {
                 issueNumber={issue.issueNumber}
                 pageCount={issue.pageCount}
                 magazineTitle={issue.magazineTitle}
+                cover={issue.cover}
               />
             </div>
           ))}

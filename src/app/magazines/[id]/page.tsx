@@ -173,10 +173,10 @@ export default function MagazinePage({ params }: { params: Promise<{ id: string 
 
             <div className={styles.issueList}>
                 {magazine.issues.map(issue => (
-                    <Link href={`/reader/${issue.id}`} key={issue.id} className={styles.issueCard}>
+                    <Link href={`/issues/${issue.id}`} key={issue.id} className={styles.issueCard}>
                         <div className={styles.issueCover}>
                             <img
-                                src={`/api/image/${issue.id}/0?ts=${new Date(issue.updatedAt || issue.addedAt).getTime()}`}
+                                src={issue.cover || `/api/image/${issue.id}/0?ts=${new Date(issue.updatedAt || issue.addedAt).getTime()}`}
                                 alt={`Cover of ${issue.title || 'issue'}`}
                                 className={styles.coverImage}
                                 style={{ width: '100%', height: '100%', objectFit: 'cover' }}
