@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Home, Library, User, LogOut, ChevronDown, BookOpen } from 'lucide-react';
+import { Home, Library, User, LogOut, ChevronDown, BookOpen, Settings as SettingsIcon } from 'lucide-react';
 import styles from './Sidebar.module.css';
 import { useState, useEffect } from 'react';
 
@@ -81,6 +81,11 @@ export default function Sidebar() {
                         <ChevronDown size={16} />
                     </div>
                 </div>
+
+                <Link href="/settings" className={styles.navItem}>
+                    <SettingsIcon size={20} />
+                    <span>Settings</span>
+                </Link>
 
                 <div className={styles.navItem}>
                     <LogOut size={20} />

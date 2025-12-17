@@ -35,3 +35,8 @@ export const readingProgress = sqliteTable('reading_progress', {
     isFinished: integer('is_finished', { mode: 'boolean' }).notNull().default(false),
     lastRead: integer('last_read', { mode: 'timestamp' }).notNull().defaultNow(),
 });
+
+export const settings = sqliteTable('settings', {
+    key: text('key').primaryKey(),
+    value: text('value').notNull(),
+});
