@@ -4,11 +4,25 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Home, Library, User, LogOut, ChevronDown, BookOpen } from 'lucide-react';
 import styles from './Sidebar.module.css';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+
+interface Magazine {
+    id: number;
+    title: string;
+}
+
 
 export default function Sidebar() {
     const pathname = usePathname();
     const [librariesOpen, setLibrariesOpen] = useState(true);
+    const [magazines, setMagazines] = useState<Magazine[]>([]);
+
+    useEffect(() => {
+        fetch('/api/magazines')
+            .then(res => res.json())
+            .then(data => setMagazines(data))
+            .catch(err => console.error('Failed to fetch magazines:', err));
+    }, []);
 
     return (
         <aside className={styles.sidebar}>
@@ -30,7 +44,7 @@ export default function Sidebar() {
                     >
                         <div className={styles.groupTitle}>
                             <Library size={20} />
-                            <span>Libraries</span>
+                            <span>Magazines</span>
                         </div>
                         <ChevronDown
                             size={16}
@@ -40,9 +54,18 @@ export default function Sidebar() {
 
                     {librariesOpen && (
                         <div className={styles.groupContent}>
-                            <div className={styles.subItem}>Nathan Lump</div>
-                            <div className={styles.subItem}>Condé Nast</div>
-                            <div className={styles.subItem}>Wired</div>
+                            {magazines.map((mag) => (
+                                <Link
+                                    key={mag.id}
+                                    href={`/magazines/${mag.id}`}
+                                    className={`${styles.subItem} ${pathname === `/magazines/${mag.id}` ? styles.activeSubItem : ''}`}
+                                >
+                                    {mag.title}
+                                </Link>
+                            ))}
+                            {magazines.length === 0 && (
+                                <div className={styles.emptyState}>No magazines found</div>
+                            )}
                         </div>
                     )}
                 </div>

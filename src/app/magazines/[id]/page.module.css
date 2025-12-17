@@ -1,0 +1,124 @@
+.container {
+    padding: 2rem;
+    color: var(--text-primary);
+}
+
+.header {
+    display: flex;
+    gap: 2rem;
+    margin-bottom: 3rem;
+    align-items: flex-start;
+}
+
+.coverContainer {
+    width: 200px;
+    flex-shrink: 0;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    aspect-ratio: 2/3;
+    background-color: var(--bg-secondary);
+}
+
+.coverImage {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.info {
+    flex-grow: 1;
+}
+
+.title {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+
+.metadata {
+    color: var(--text-secondary);
+    margin-bottom: 1.5rem;
+}
+
+.metaItem {
+    margin-bottom: 0.5rem;
+}
+
+.actions {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.button {
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background-color 0.2s;
+}
+
+.primaryButton {
+    background-color: var(--accent-color);
+    color: white;
+}
+
+.dangerButton {
+    background-color: #dc3545;
+    color: white;
+}
+
+.secondaryButton {
+    background-color: var(--bg-tertiary);
+    color: var(--text-primary);
+}
+
+.issueList {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 1.5rem;
+}
+
+.issueCard {
+    background-color: var(--card-bg);
+    border-radius: 8px;
+    padding: 1rem;
+    text-align: center;
+    transition: transform 0.2s;
+    cursor: pointer;
+}
+
+.issueCard:hover {
+    transform: translateY(-4px);
+}
+
+.issueCover {
+    width: 100%;
+    aspect-ratio: 2/3;
+    background-color: var(--bg-secondary);
+    margin-bottom: 0.5rem;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.issueTitle {
+    font-size: 0.9rem;
+    font-weight: 500;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.input {
+    font-size: 2rem;
+    font-weight: 700;
+    background: transparent;
+    border: 1px solid var(--border-color);
+    color: inherit;
+    padding: 0.25rem;
+    border-radius: 4px;
+    width: 100%;
+    margin-bottom: 0.5rem;
+}

@@ -27,3 +27,11 @@ export const articles = sqliteTable('articles', {
     startPage: integer('start_page').notNull(),
     endPage: integer('end_page'),
 });
+
+export const readingProgress = sqliteTable('reading_progress', {
+    id: integer('id').primaryKey({ autoIncrement: true }),
+    issueId: integer('issue_id').references(() => issues.id, { onDelete: 'cascade' }),
+    currentPage: integer('current_page').notNull().default(0),
+    isFinished: integer('is_finished', { mode: 'boolean' }).notNull().default(false),
+    lastRead: integer('last_read', { mode: 'timestamp' }).notNull().defaultNow(),
+});
